@@ -1,0 +1,16 @@
+{
+  "name": "tagshelf-interview-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "one": "node ./1.convert_to_rgb_hsv/app.js",
+    "two": "node ./2.return_value_with_coordenates/app.js",
+    "three": "node ./3.count_word/app.js",
+    "four": "node ./4.identify_language/app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
