@@ -5,12 +5,17 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "one": "node ./1.convert_to_rgb_hsv/app.js",
-    "two": "node ./2.return_value_with_coordenates/app.js",
-    "three": "node ./3.count_word/app.js",
-    "four": "node ./4.identify_language/app.js"
+    "zero": "npx ts-node app.ts",
+    "one": "npx ts-node ./src/1.convert_rgb_hsv/app.ts",
+    "two": "npx ts-node ./src/2.return_value_with_coordenates/app.ts",
+    "three": "npx ts-node ./src/3.count_word/app.ts",
+    "four": "npx ts-node ./src/4.identify_language/app.ts"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
+  }
 }
