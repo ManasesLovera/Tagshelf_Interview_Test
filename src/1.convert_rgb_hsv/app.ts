@@ -56,9 +56,6 @@ function rgbToHsv(r: number, g: number, b: number) : [number, number, number]
     */
 
     // Here you can see the approach I did according to the formula
-
-    let addNumber = 0;
-    
     let h = 60 * (
         max === r ? ((g - b) / chroma) :
         max === g ? ((b - r) / chroma + 2) :
