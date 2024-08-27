@@ -17,4 +17,30 @@ pesan varios GB) línea por línea y realice las siguientes tareas:
         continuar incluso si uno de los archivos se niega a cooperar.
 
         Descarga el siguiente libro de Project Gutenberg para hacer pruebas.
+
+
+
+        0
+        2
+
+        8
+        10
+
+        16
+        18
+
+        24
+        26
+        
+        32
+        34
+
+        40
+        42
+
+        48
+        50
+
+        56
+        58
 */

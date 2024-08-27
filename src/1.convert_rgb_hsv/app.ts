@@ -15,7 +15,7 @@ Ver: http://en.wikipedia.org/wiki/HSV_color_space
 
 /*
 I could say I had a hard time understanding this one, it may be easy to follow the formula but I wanted to understand
-how and why the formula was that way, it took me more time that I thought, but I believe I finally understood this problem.
+how and why the formula was that way, it took me more time that I thought, but I finally understood this problem.
 
 First steps was understanding what RGB is, which I am already familiar with, (red, green, blue), very easy, but when I saw
 HSV it took me more time to understand what actually is and the difference between RGB and HSV.
@@ -43,8 +43,7 @@ function rgbToHsv(r: number, g: number, b: number) : [number, number, number]
     const chroma = max - min;
 
     // the H or Hue value will change depending on the max of RGB, remember it's a different color depending on the number
-    // the same number could represent different colors from 0 to 360, I was told I can't use conditionals, I understood 
-    // I could not use, if statement, I will be using ternary operator, I don't know if it's cheating :v
+    // the same number could represent different colors from 0 to 360
 
     /*
     So basically the formula is:
@@ -57,6 +56,9 @@ function rgbToHsv(r: number, g: number, b: number) : [number, number, number]
     */
 
     // Here you can see the approach I did according to the formula
+
+    let addNumber = 0;
+    
     let h = 60 * (
         max === r ? ((g - b) / chroma) :
         max === g ? ((b - r) / chroma + 2) :

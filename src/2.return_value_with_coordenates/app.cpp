@@ -40,3 +40,45 @@
 0x19 0x18 0x19 0x1a 0x1b 0x1a 0x1b 0x18 0x19 0x18 0x19 0x1a 0x1b 0x1a 0x1b 0x1c
 0x1d 0x1c 0x1d 0x1e 0x1f 0x1e 0x1f 0x1c 0x1d 0x1c 0x1d 0x1e 0x1f 0x1e 0x1f 0x00
 */
+
+#include<iostream>
+#include<string>
+#include<iomanip>
+
+using namespace std;
+
+unsigned char getValueByCoordenates(int row, int col)
+{
+    // Row
+    int rowSection = row / 16;
+    int value = 0 + (rowSection * 16);
+    int rowPosition = (row - value);
+    rowPosition -= 8 * ((row - value) >= 8);
+    value += 4 * (rowPosition == 1 || rowPosition == 3);
+    value += 8 * (rowPosition == 4 || rowPosition == 6);
+    value += 12 * (rowPosition == 5 || rowPosition == 7);
+
+    // Column
+    value += 4 * (col == 15);
+    col -= 8 * (col >= 8);
+    value += 1 * (col == 0 || col == 2);
+    value += 2 * (col == 3 || col == 5);
+    value += 1 * (col == 4 || col == 6);
+
+    return value;
+}
+
+int main()
+{
+    int row, col;
+    cout << "Enter row: ";
+    cin >> row;
+    cout << "Enter column: ";
+    cin >> col;
+
+    unsigned char value = getValueByCoordenates(row, col);
+    cout << "Value at: (" << row << ", " << col << ") is: 0x"
+        << hex << setw(2) << setfill('0') << (int)value << endl;
+
+    return 0;
+}

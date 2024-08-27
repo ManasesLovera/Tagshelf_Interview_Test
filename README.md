@@ -1,4 +1,4 @@
-# Solving javascript exercises
+# Tagshelf Interview Test
 
 ### Convert RGB to HSV and HSV to RGB using typescript
 
