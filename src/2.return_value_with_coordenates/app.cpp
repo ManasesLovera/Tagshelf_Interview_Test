@@ -41,6 +41,26 @@
 0x1d 0x1c 0x1d 0x1e 0x1f 0x1e 0x1f 0x1c 0x1d 0x1c 0x1d 0x1e 0x1f 0x1e 0x1f 0x00
 */
 
+/*
+Wow, I can definitely say I felt a satisfaction feeling when I solved this problem, both the first and second problem
+were hard to solve in the beginning, but once I complete both of them they look very easy for me now, once I understand the problem
+and got the solution by myself.
+
+Understanding the pattern and this... "Sin utilizar ramas (evaluaciones de condiciones)" were the hardert part of the problem for me,
+but once I realized a way to apply conditions without if statements, switch or ternary operators, it was easy for me, never used in the
+past that way, I was very comfortable using if, etc... that never actually felt the needing of not using them.
+
+Well, let's talk about how I solved the problem, when I discovered the pattern, I divided all rows by sections of every 16 rows,
+every 16 rows there is a different of 16, also, the first thing I noticed was that all numbers were in the hexadecimal number
+system, after I divided by 16 all rows, I discovered that the first 8 rows are being repeated twice, like from row 0 to 7, were the 
+same than row 8 to 15, also from row 16 to 23 the same as 24 to 31, so one of the approaches was to substract 8 if the number is
+equal of higher than 8, and just take the first 8 rows, of each 16 rows, I called each 16 rows 'rowSection', the first name  that
+popped into my head.
+
+It took me more time to figure out the pattern because I was seeing row by row, until I took a deep breath and saw the data
+in a different perspective.
+*/
+
 #include<iostream>
 #include<string>
 #include<iomanip>
@@ -49,22 +69,28 @@ using namespace std;
 
 unsigned char getValueByCoordenates(int row, int col)
 {
-    // Row
+    // The first thing I do step by step, divide by 16 all the sections
     int rowSection = row / 16;
+    // multiply by 16 to be in the first row of the section
     int value = 0 + (rowSection * 16);
+    // specific position in the section
     int rowPosition = (row - value);
+    // This will only substract 8 if it's higher than 8, remember and 8 first rows are repeated two times
     rowPosition -= 8 * ((row - value) >= 8);
+    // And this is the specific formula, only adding to the right values as per the pattern above
     value += 4 * (rowPosition == 1 || rowPosition == 3);
     value += 8 * (rowPosition == 4 || rowPosition == 6);
     value += 12 * (rowPosition == 5 || rowPosition == 7);
 
-    // Column
+    // There is a pattern in the column that is repeated two times, no the last time, again
+    // number less 8 only if it's higher than 8, so we don't need to do it two times
     value += 4 * (col == 15);
     col -= 8 * (col >= 8);
     value += 1 * (col == 0 || col == 2);
     value += 2 * (col == 3 || col == 5);
     value += 1 * (col == 4 || col == 6);
 
+    // The last part, let's just return the value
     return value;
 }
 
@@ -76,6 +102,7 @@ int main()
     cout << "Enter column: ";
     cin >> col;
 
+    // This gets the value using the function and show it in the console
     unsigned char value = getValueByCoordenates(row, col);
     cout << "Value at: (" << row << ", " << col << ") is: 0x"
         << hex << setw(2) << setfill('0') << (int)value << endl;
