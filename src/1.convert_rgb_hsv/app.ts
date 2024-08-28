@@ -56,24 +56,40 @@ function rgbToHsv(r: number, g: number, b: number) : [number, number, number]
     */
 
     // Here you can see the approach I did according to the formula
-    let h = 60 * (
-        max === r ? ((g - b) / chroma) :
-        max === g ? ((b - r) / chroma + 2) :
-        max === b ? ((r - g) / chroma + 4) : 0
-    );
+
+    let rMax = ((g - b) / chroma) * Math.floor(r / max);
+    let gMax = ((b - r) / chroma + 2) * Math.floor(g / max);
+    let bMax = ((r - g) / chroma + 4) * Math.floor(b / max);
+
+    let h = 60 * (rMax + gMax + bMax);
+
+    // This is the code I had before, but then realized I was not able to use ternary operators
+    // let h = 60 * (
+    //     max === r ? ((g - b) / chroma) :
+    //     max === g ? ((b - r) / chroma + 2) :
+    //     max === b ? ((r - g) / chroma + 4) : 0
+    // );
 
     // Do you remember the fix to the Hue since it's from 0 to 360? Here is the way we make the magic so we ensure is in the correct range
     h = (h + 360) % 360;
 
     // Now that we did all the hard part both S and V are vary easy, S is just chrome / max, and V is just the max XD
-    // Since the max could be 0, I did this because as you know we can't divide by zero
-    const s = max === 0 ? 0 : (chroma / max);
-    const v = max;
+    // Since the max could be 0, I did this because as you know we can't divide by zero, I had another ternary operator here,
+    // and this code prevent the exception if max is 0
+    let s;
+    try {
+        s = chroma / max;
+    }
+    catch(e) {
+        s = 0
+    }
+        
+    const V = max;
 
-    // and that's all :D
-    // Now we just return all that and we are DONE :)
+    // and that's all
+    // Now we just return all that and we are DONE
 
-    return [h, s, v];
+    return [h, s, V];
 }
 
 function hsvToRgb(h: number, s: number, v: number) : [number, number, number] 
@@ -99,23 +115,14 @@ function hsvToRgb(h: number, s: number, v: number) : [number, number, number]
     // With this we determine the hue sector, it is devided into 6, each representing a primary or secondary color.
     const hIndex = Math.floor(h / 60) % 6;
 
-    // For each sector, we calculate it using different combinations of C and X
-    const r = (hIndex === 0 || hIndex === 5) ? c : (hIndex === 1 || hIndex === 4) ? x : 0;
-    const g = (hIndex === 1 || hIndex === 2) ? c : (hIndex === 0 || hIndex === 3) ? x : 0;
-    const b = (hIndex === 2 || hIndex === 3) ? c : (hIndex === 4 || hIndex === 5) ? x : 0;
+    // For not using an if, switch or ternary op I did an array looking for the index
+    const rArray = [c, x, 0, 0, x, c]
+    const gArray = [x, c, c, x, 0, 0]
+    const bArray = [0, 0, c, c, x, x]
 
-    /*
-    Another way here which looks more accurate to the formula but both do the same:
-
-    switch (hIndex) {
-        case 0: r = c; g = x; b = 0; break;
-        case 1: r = x; g = c; b = 0; break;
-        case 2: r = 0; g = c; b = x; break;
-        case 3: r = 0; g = x; b = c; break;
-        case 4: r = x; g = 0; b = c; break;
-        case 5: r = c; g = 0; b = x; break;
-    }
-    */
+    const r = rArray[hIndex]
+    const g = gArray[hIndex]
+    const b = bArray[hIndex]
 
     // Last! We convert 0 to 1 range to 0 to 255 and round to integers (according to the formula) B)
     return [
@@ -126,10 +133,8 @@ function hsvToRgb(h: number, s: number, v: number) : [number, number, number]
 }
 
 console.log(rgbToHsv(255,0,0)); // This should return [ 0, 1, 1 ] remember S and V are represented by percentage, 1 means 100%
-console.log(hsvToRgb(70, .5, 1)); // This should return [ 255, 0, 0 ] same as the previous message, 1 means 100%
+console.log(hsvToRgb(0, 1, 1)); // This should return [ 255, 0, 0 ] same as the previous message, 1 means 100%
                                 // it would be easy to change the formula if you want to add 100 instead of 1
-
-
 /*
 Must mention the websites where I got the formulas hehe:
 

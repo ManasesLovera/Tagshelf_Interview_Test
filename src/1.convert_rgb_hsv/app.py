@@ -1,4 +1,5 @@
 import math
+
 def rgbToHsv(r, g, b):
     r /= 255
     g /= 255
@@ -9,13 +10,15 @@ def rgbToHsv(r, g, b):
     chroma = cMax - cMin
 
     h = 0
-    h = ((g - b) / chroma) * (cMax == r)
-    h = ((b - r) / chroma + 2) * (cMax == g)
-    h = ((r - g) / chroma + 4) * (cMax == b)
+    h += ((g - b) / chroma) * (cMax == r)
+    h += ((b - r) / chroma + 2) * (cMax == g)
+    h += ((r - g) / chroma + 4) * (cMax == b)
 
-    # If all RGB are zero this will stop execution, just trying not to use
-    # any conditional statement
-    S = chroma / cMax
+    try:
+        S = chroma / cMax
+    except:
+        S = 0
+
     V = cMax
 
     return [int(h), int(S), int(V)]
