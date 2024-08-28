@@ -9,8 +9,8 @@ Edit: I found I way to do it in typescript :v and now it works according to the 
 
 ### 2. Return value with coordenates using C++
 
-For running this code I followed the [visual studio docs](https://code.visualstudio.com/docs/cpp/config-mingw) steps to configure the editor to use the GCC C++ compiler (g++) from mingw-w64. <br>>
-First I wanted to use one programming language, but then decided to use different as a personal challenge, to run this code you can either click on F5, click on run using the vscode interface
+For coding in c++ I followed the [visual studio code docs](https://code.visualstudio.com/docs/cpp/config-mingw) steps to configure the editor to use the GCC C++ compiler (g++) from mingw-w64. <br>
+To compile and run this code you can either click on F5, click on run using the vscode interface, or use the terminal: g++ -o app app.cpp.
 
 ### 3. Count Word
 
