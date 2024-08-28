@@ -6,7 +6,6 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "rgb_hsv": "npx ts-node ./src/1.convert_rgb_hsv/app.ts",
-    "two": "npx ts-node ./src/2.return_value_with_coordenates/app.ts",
     "three": "npx ts-node ./src/3.count_word/app.ts",
     "four": "npx ts-node ./src/4.identify_language/app.ts"
   },

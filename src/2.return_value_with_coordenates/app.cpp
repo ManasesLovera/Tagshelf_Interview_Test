@@ -67,6 +67,7 @@ in a different perspective.
 
 using namespace std;
 
+// I'm using unsigned char becuase FF the max value we could see, is 255 in decimals
 unsigned char getValueByCoordenates(int row, int col)
 {
     // The first thing I do step by step, divide by 16 all the sections

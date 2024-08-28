@@ -1,3 +1,5 @@
 node_modules
 .vscode
 src/*/*.exe
+src/4.identity_language/bin
+src/4.identity_language/obj
