@@ -14,10 +14,8 @@ def rgbToHsv(r, g, b):
     h += ((b - r) / chroma + 2) * (cMax == g)
     h += ((r - g) / chroma + 4) * (cMax == b)
 
-    try:
-        S = chroma / cMax
-    except:
-        S = 0
+    # to not use try/except
+    S = chroma / cMax if cMax != 0 else 0
 
     V = cMax
 
