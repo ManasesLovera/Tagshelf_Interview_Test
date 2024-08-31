@@ -21,18 +21,44 @@ pesan varios GB) línea por línea y realice las siguientes tareas:
 
 import express, {Request, Response} from 'express';
 import dotenv from 'dotenv';
+import path from 'path';
+import fs from 'fs';
+import WordCount from './wordcount';
+import OrderedList from './orderedlist';
 
 dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-type RequestBody = {
-    text: string
+function countWords(data: string) {
+
+    let result: OrderedList<WordCount> = new OrderedList<WordCount>();
+
+    let array: string[] = data.split(/[\s\r\n]+/);
+
+    for (let i = 0; i < array.length; i++) {
+        result.set(array[i].toLowerCase().replace(/[.,]$/, ''));
+    }
+    const response = {
+        count: result.count,
+        topTen: result.get(10),
+        allWords: result.getAll()
+    };
+    return response;
 }
 
 app.get('/count_words', (_req: Request, res: Response) => {
-    res.send('This is working!');
+
+    const filePath = path.join(__dirname, 'text.txt');
+
+    fs.readFile(filePath, 'utf8', (err, data) => {
+        if (err) {
+            return res.status(500).send('Error reading file');
+        }
+
+        return res.send(countWords(data));
+    })
 });
 
 app.listen(port, () => {
