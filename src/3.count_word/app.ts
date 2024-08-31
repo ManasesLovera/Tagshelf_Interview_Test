@@ -18,3 +18,23 @@ pesan varios GB) línea por línea y realice las siguientes tareas:
 
         Descarga el siguiente libro de Project Gutenberg para hacer pruebas.
 */
+
+import express, {Request, Response} from 'express';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const app = express();
+const port = process.env.PORT || 3000;
+
+type RequestBody = {
+    text: string
+}
+
+app.get('/count_words', (_req: Request, res: Response) => {
+    res.send('This is working!');
+});
+
+app.listen(port, () => {
+    console.log(`Server running at http://localhost:${port}`);
+})

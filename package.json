@@ -7,13 +7,19 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "rgb_hsv": "npx ts-node ./src/1.convert_rgb_hsv/app.ts",
     "rgb_hsv_py": "py ./src/1.convert_rgb_hsv/app.py",
-    "four": "npx ts-node ./src/4.identify_language/app.ts"
+    "count_words": "npx ts-node ./src/3.count_word/app.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.5.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
   }
 }
