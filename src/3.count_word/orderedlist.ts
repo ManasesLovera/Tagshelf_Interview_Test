@@ -10,13 +10,16 @@ class OrderedList<T extends WordCount> {
         } else {
             this.list.push(new WordCount(word, 1) as T)
         }
-        this.list.sort((a, b) => b.count - a.count);
     }
-
+    sort(): T[] {
+        this.list.sort((a, b) => b.count - a.count);
+        return this.list;
+    }
     contains(word: string): boolean {
         return this.list.some(wc => wc.word === word);
     }
     getAll(): T[] {
+        this.sort();
         return [...this.list];
     }
     delete(word: string): boolean {
@@ -28,6 +31,7 @@ class OrderedList<T extends WordCount> {
         return false;
     }
     get(n: number = this.list.length) {
+        this.sort();
         return this.list.slice(0, n);
     }
     get count(): number {
