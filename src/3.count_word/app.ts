@@ -23,6 +23,7 @@ import express, {Request, Response} from 'express';
 import dotenv from 'dotenv';
 import path from 'path';
 import fs from 'fs';
+import readline from 'readline';
 import WordCount from './wordcount';
 import OrderedList from './orderedlist';
 
@@ -31,14 +32,20 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 3000;
 
-function countWords(data: string) {
+async function countWords(filePath: string) {
+
+    const fileStream = fs.createReadStream(filePath);
+
+    const rl = readline.createInterface({
+        input: fileStream,
+        crlfDelay: Infinity,
+    })
 
     let result: OrderedList<WordCount> = new OrderedList<WordCount>();
 
-    let array: string[] = data.split(/[\s\r\n]+/);
-
-    for (let i = 0; i < array.length; i++) {
-        result.set(array[i].toLowerCase().replace(/[.,]$/, ''));
+    for await (const line of rl) {
+        line.split(/[\s\r\n]+/).forEach(word => 
+            result.set(word.toLowerCase().replace(/[.,]$/, '')))
     }
     const response = {
         count: result.count,
@@ -48,17 +55,17 @@ function countWords(data: string) {
     return response;
 }
 
-app.get('/count_words', (_req: Request, res: Response) => {
+app.get('/count_words', async (_req: Request, res: Response) => {
 
     const filePath = path.join(__dirname, 'text.txt');
 
-    fs.readFile(filePath, 'utf8', (err, data) => {
-        if (err) {
-            return res.status(500).send('Error reading file');
-        }
-
-        return res.send(countWords(data));
-    })
+    try {
+        const response = await countWords(filePath);
+        res.send(response)
+    }
+    catch (error) {
+        res.status(500).send('Error reading file');
+    }
 });
 
 app.listen(port, () => {
