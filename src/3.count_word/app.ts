@@ -19,6 +19,17 @@ pesan varios GB) línea por línea y realice las siguientes tareas:
         Descarga el siguiente libro de Project Gutenberg para hacer pruebas.
 */
 
+/*
+When I do in my terminal:
+node
+> os.cpus().length
+
+the result is:
+8
+
+now I know my cpu has 8 cores
+*/
+
 import express, {Request, Response} from 'express';
 import dotenv from 'dotenv';
 import path from 'path';
